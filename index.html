@@ -634,6 +634,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   "@type": "Electrician",
   "name": "Big Oak Electrical Services",
   "telephone": "+1-229-221-4214",
+  "email": "boe4214@gmail.com",
   "foundingDate": "2009",
   "address": { "@type": "PostalAddress", "streetAddress": "319 N Young St", "addressLocality": "Thomasville", "addressRegion": "GA", "postalCode": "31792", "addressCountry": "US" },
   "areaServed": ["Thomasville, GA", "South Georgia", "Southwest Georgia", "Florida"],
@@ -981,10 +982,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
         <div class="contact-actions">
           <a class="btn btn-primary btn-lg" href="tel:+12292214214">Call (229) 221-4214</a>
         </div>
-        <p class="contact-lines">319 N Young St<br>Thomasville, GA 31792<br>24-hour emergency service</p>
+        <p class="contact-lines">Email: <a href="mailto:boe4214@gmail.com">boe4214@gmail.com</a><br>319 N Young St<br>Thomasville, GA 31792<br>24-hour emergency service</p>
       </div>
-      <!-- TODO before launch: set TO_EMAIL in the script below to the business's real intake email, or point the form
-           at a form service. Until then it shows a "call us" note instead of sending. -->
+      <!-- The form opens the visitor's email app with a pre-filled message to the business.
+           TODO before launch: point it at a real form endpoint so leads arrive without the visitor's email app. -->
       <form class="contact-form reveal" id="estimate-form" aria-label="Request an estimate" novalidate>
         <label for="f-name">Name</label>
         <input id="f-name" type="text" name="name" autocomplete="name" required>
@@ -1068,6 +1069,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
         <span class="muted">24-hour emergency service</span>
       </p>
       <p class="contact-line">
+        <a href="mailto:boe4214@gmail.com">boe4214@gmail.com</a>
+        <span class="muted">Email us</span>
+      </p>
+      <p class="contact-line">
         319 N Young St
         <span class="muted">Thomasville, GA 31792</span>
       </p>
@@ -1129,8 +1134,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     revealEls.forEach(function (el) { io.observe(el); });
   }
 
-  // Estimate form. TO_EMAIL is empty because no intake email was found for the business.
-  var TO_EMAIL = '';
+  // Estimate form: opens the visitor's email app with a pre-filled message to the business.
+  var TO_EMAIL = 'boe4214@gmail.com';
   var form = document.getElementById('estimate-form');
   var note = document.getElementById('form-note');
   form.addEventListener('submit', function (e) {
@@ -1140,10 +1145,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     if (missing.length || !f.email.checkValidity()) {
       note.textContent = 'Please add your name, phone number and a valid email so we can reach you.';
       (missing.length ? f[missing[0]] : f.email).focus();
-      return;
-    }
-    if (!TO_EMAIL) {
-      note.textContent = 'This form is not connected yet. Please call (229) 221-4214.';
       return;
     }
     var lines = [
